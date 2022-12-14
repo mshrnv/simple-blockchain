@@ -1,8 +1,6 @@
 """Block node Module"""
-from datetime import datetime
-from hashlib import sha256
-from prettytable import PrettyTable
 import json
+from prettytable import PrettyTable
 
 
 class Block:
@@ -17,7 +15,7 @@ class Block:
         amount: float,
         mining_complexity: int,
         timestamp: int,
-        hash: str,
+        hash_: str,
     ):
         """Default initialization
 
@@ -38,20 +36,10 @@ class Block:
         self.__amount = amount
         self.__mining_complexity = mining_complexity
         self.__timestamp = timestamp
-        self.__hash = self.hash
-
-    # def __hash__(self) -> str:
-    #     to_hash_string = (
-    #         self.__prev_hash
-    #         + self.__source
-    #         + self.__destination
-    #         + str(self.__amount)
-    #         + str(self.__timestamp)
-    #     )
-
-    #     return sha256(to_hash_string.encode("utf-8")).hexdigest()
+        self.__hash = hash_
 
     def pretty_print(self) -> None:
+        """Prints table with block data"""
         table = PrettyTable()
         table.field_names = ["Field", "Value"]
         table.title = f"Block №{self.__counter}: {self.__hash}"
@@ -63,6 +51,11 @@ class Block:
         print(table)
 
     def get_data(self) -> dict:
+        """Returns block data dict
+
+        Returns:
+            dict: Block data
+        """
         data = {
             "counter": self.__counter,
             "source": self.__source,
@@ -77,10 +70,24 @@ class Block:
         return data
 
     def serialize(self) -> str:
+        """Data dict to JSON serialization
+
+        Returns:
+            str: Serialized data
+        """
+        data = self.get_data()
         json_data = json.dumps(data)
         return json_data
 
     @staticmethod
-    def deserialize(self, serialized_data: str) -> dict:
+    def deserialize(serialized_data: str) -> dict:
+        """JSON to dict deserialization
+
+        Args:
+            serialized_data (str): Serialized data
+
+        Returns:
+            dict: Data dict
+        """
         data = json.loads(serialized_data)
         return data
