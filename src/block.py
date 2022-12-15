@@ -8,14 +8,13 @@ class Block:
 
     def __init__(
         self,
-        counter: int,
-        prev_hash: str,
-        source: str,
-        destination: str,
-        amount: float,
         mining_complexity: int,
-        timestamp: int,
+        counter: int,
+        mined_time: int,
+        prev_hash: str,
         hash_: str,
+        nonce: str,
+        data: dict,
     ):
         """Default initialization
 
@@ -31,22 +30,21 @@ class Block:
         """
         self.__counter = counter
         self.__prev_hash = prev_hash
-        self.__source = source
-        self.__destination = destination
-        self.__amount = amount
         self.__mining_complexity = mining_complexity
-        self.__timestamp = timestamp
+        self.__mined_time = mined_time
         self.__hash = hash_
+        self.__nonce = nonce
+        self.__data = data
 
     def pretty_print(self) -> None:
         """Prints table with block data"""
         table = PrettyTable()
-        table.field_names = ["Field", "Value"]
-        table.title = f"Block №{self.__counter}: {self.__hash}"
-        table.add_row(["Source", self.__source])
-        table.add_row(["Destination", self.__destination])
-        table.add_row(["Amount", self.__amount])
-        table.add_row(["Date", self.__timestamp.strftime("%m/%d/%Y, %H:%M:%S")])
+        table.field_names = [f"Block: {self.__counter}"]
+        table.add_row([f"Time: {self.__mined_time}"])
+        table.add_row([f"Hash: {self.__hash}"])
+        table.add_row([f"Nonce: {self.__nonce}"])
+        table.add_row([f"Prev: {self.__prev_hash}"])
+        table.add_row(["Transaction: Transaction"])
 
         print(table)
 
@@ -57,17 +55,21 @@ class Block:
             dict: Block data
         """
         data = {
-            "counter": self.__counter,
-            "source": self.__source,
-            "destination": self.__destination,
-            "amount": self.__amount,
-            "prev_hash": self.__prev_hash,
-            "hash": self.__hash,
-            "mining_complexity": self.__mining_complexity,
-            "timestamp": self.__timestamp,
+            # "counter": self.__counter,
+            # "source": self.__source,
+            # "destination": self.__destination,
+            # "amount": self.__amount,
+            # "prev_hash": self.__prev_hash,
+            # "hash": self.__hash,
+            # "mining_complexity": self.__mining_complexity,
+            # "timestamp": self.__timestamp,
         }
 
         return data
+
+    def get_hash(self) -> str:
+        """__hash property"""
+        return self.__hash
 
     def serialize(self) -> str:
         """Data dict to JSON serialization
