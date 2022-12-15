@@ -67,6 +67,10 @@ class Block:
 
         return data
 
+    def get_counter(self) -> int:
+        """Counter property"""
+        return self.__counter
+
     def get_hash(self) -> str:
         """__hash property"""
         return self.__hash
