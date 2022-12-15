@@ -21,13 +21,9 @@ class Blockchain:
             Block(2, 0, utils.get_time(), genesis_hash, nonce["hash"], nonce["i"], data)
         )
 
-    def get_latest_block_hash(self) -> str:
-        """Returns hash of latest block from chain
-
-        Returns:
-            str: hash
-        """
-        return self.__blockchain[-1].get_hash()
+    def get_latest_block(self) -> Block:
+        """Returns latest block"""
+        return self.__blockchain[-1]
 
     def print(self) -> None:
         """Prints all blocks"""
@@ -79,6 +75,10 @@ class Blockchain:
         print("[Error] -> add_block")
         return False
 
+    def get_blockchain(self):
+        """Blockchain property"""
+        return self.__blockchain
 
-bc = Blockchain()
-bc.print()
+
+# bc = Blockchain()
+# bc.print()
