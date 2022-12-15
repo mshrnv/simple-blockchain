@@ -8,7 +8,7 @@ class Node:
     def __init__(self, left, right, content):
         self.left = left
         self.right = right
-        self.content = content
+        self.content = str(content)
         self.value = self.__hash()
 
     def __hash(self) -> str:
